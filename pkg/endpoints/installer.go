@@ -892,7 +892,8 @@ func (a *APIInstaller) registerResourceHandlers(path string, storage rest.Storag
 			supportedTypes := []string{
 				string(types.JSONPatchType),
 				string(types.MergePatchType),
-				string(types.StrategicMergePatchType),
+				// loft-sh: We need to disable strategic merge patch as they are not supported by CRDs but we use CRDs as the backend for our resources.
+				// string(types.StrategicMergePatchType),
 				string(types.ApplyYAMLPatchType),
 			}
 			if utilfeature.DefaultFeatureGate.Enabled(features.CBORServingAndStorage) {
