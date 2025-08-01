@@ -874,7 +874,8 @@ func (a *APIInstaller) registerResourceHandlers(path string, storage rest.Storag
 			supportedTypes := []string{
 				string(types.JSONPatchType),
 				string(types.MergePatchType),
-				string(types.StrategicMergePatchType),
+				// loft-sh: We need to disable strategic merge patch as they are not supported by CRDs but we use CRDs as the backend for our resources.
+				// string(types.StrategicMergePatchType),
 				string(types.ApplyPatchType),
 			}
 			handler := metrics.InstrumentRouteFunc(action.Verb, group, version, resource, subresource, requestScope, metrics.APIServerComponent, deprecated, removedRelease, restfulPatchResource(patcher, reqScope, admit, supportedTypes))
